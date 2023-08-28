@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <CardView />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import CardView from "@/components/CardView.vue";
+import { mapActions, mapState } from "vuex";
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  computed: {
+    ...mapState(["products", "category", "count"]),
+  },
+  methods: {
+    ...mapActions(["fetchProducts", "fetchCategory"]),
+  },
+  mounted() {
+    this.fetchProducts();
+    this.fetchCategory();
+  },
+  data() {
+    return {
+      message: "Vuex ile EscuelaJS API Örneği",
+      counter: 0,
+    };
+  },
+  components: { CardView },
+};
 </script>
+
+<style lang="scss" scoped></style>
